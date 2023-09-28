@@ -32,5 +32,8 @@ export const dependencyVersionMap = {
   "@trpc/next": "^10.37.1",
   "@tanstack/react-query": "^4.32.6",
   superjson: "^1.13.1",
+
+  // T-Tech Core ui
+  "@tyrannosaurustech/ui": "^0.2.16",
 } as const;
 export type AvailableDependencies = keyof typeof dependencyVersionMap;

@@ -5,6 +5,7 @@ import { tailwindInstaller } from "~/installers/tailwind.js";
 import { trpcInstaller } from "~/installers/trpc.js";
 import { type PackageManager } from "~/utils/getUserPkgManager.js";
 import { drizzleInstaller } from "./drizzle.js";
+import { coreUiInstaller } from "./coreUi.js";
 
 // Turning this into a const allows the list to be iterated over for programatically creating prompt options
 // Should increase extensability in the future
@@ -15,6 +16,7 @@ export const availablePackages = [
   "tailwind",
   "trpc",
   "envVariables",
+  "coreUi",
 ] as const;
 export type AvailablePackages = (typeof availablePackages)[number];
 
@@ -62,5 +64,9 @@ export const buildPkgInstallerMap = (
   envVariables: {
     inUse: true,
     installer: envVariablesInstaller,
+  },
+  coreUi: {
+    inUse: packages.includes("coreUi"),
+    installer: coreUiInstaller,
   },
 });

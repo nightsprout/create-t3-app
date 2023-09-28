@@ -29,6 +29,8 @@ interface CliFlags {
   drizzle: boolean;
   /** @internal Used in CI. */
   nextAuth: boolean;
+  /** @internal Used in CI. */
+  coreUi: boolean;
 }
 
 interface CliResults {
@@ -39,7 +41,7 @@ interface CliResults {
 
 const defaultOptions: CliResults = {
   appName: DEFAULT_APP_NAME,
-  packages: ["nextAuth", "prisma", "tailwind", "trpc"],
+  packages: ["nextAuth", "prisma", "tailwind", "trpc", "coreUi"],
   flags: {
     noGit: false,
     noInstall: false,
@@ -50,6 +52,7 @@ const defaultOptions: CliResults = {
     prisma: false,
     drizzle: false,
     nextAuth: false,
+    coreUi: false,
     importAlias: "~/",
   },
 };
@@ -113,6 +116,12 @@ export const runCli = async (): Promise<CliResults> => {
     .option(
       "--trpc [boolean]",
       "Experimental: Boolean value if we should install tRPC. Must be used in conjunction with `--CI`.",
+      (value) => !!value && value !== "false"
+    )
+    /** @experimental - Used for CI E2E tests. Used in conjunction with `--CI` to skip prompting. */
+    .option(
+      "--coreUi [boolean]",
+      "Experimental: Boolean value if we should install coreUi. Must be used in conjunction with `--CI`.",
       (value) => !!value && value !== "false"
     )
     /** @experimental - Used for CI E2E tests. Used in conjunction with `--CI` to skip prompting. */
